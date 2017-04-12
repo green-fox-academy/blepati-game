@@ -2,7 +2,6 @@ from tkinter import *
 from boards import *
 root = Tk()
 canvas = Canvas(root, width=720, height=720, background = "black")
-canvas.pack()
 
 class FloorMap(object):
     def __init__(self):
@@ -23,21 +22,39 @@ class Character(object):
         #self.char_pic = PhotoImage(file="assets/" + char_pic)
         self.pos_x = 0
         self.pos_y = 0
-        #self.tile = 72
+        self.tile = 72
 
     def draw_character(self, pos_x, pos_y, char_pic):
-        canvas.create_image(pos_x*72, pos_y*72, anchor = NW, image = char_pic)
+        canvas.create_image(pos_x*self.tile, pos_y*self.tile, anchor = NW, image = char_pic)
 
 class Hero(Character):
     def __init__(self):
+        super().__init__()
         self.char_pic_down =  PhotoImage(file="assets/hero-down.png")
         self.char_pic_up=  PhotoImage(file="assets/hero-up.png")
         self.char_pic_left =  PhotoImage(file="assets/hero-left.png")
         self.char_pic_right =  PhotoImage(file="assets/hero-right.png")
-        self.draw_character(3, 4, self.char_pic_right)
+        self.draw_character(self.pos_x, self.pos_y, self.char_pic_down)
+
+    def move_character(self, e):
+        if e.keycode == 111:
+            self.draw_character(self.pos_x, self.pos_y, self.char_pic_up)
+        elif e.keycode == 116:
+            self.pos_y += 1
+            self.draw_character(self.pos_x, self.pos_y, self.char_pic_down)
+        elif e.keycode == 114:
+            self.pos_x += 1
+            self.draw_character(self.pos_x, self.pos_y, self.char_pic_right)
+        elif e.keycode == 113:
+            self.pos_x -= 1
+            self.draw_character(self.pos_x, self.pos_y, self.char_pic_left)
 
 floor = FloorMap()
 floor.map_display(map1)
 hero = Hero()
+canvas.bind("<KeyPress>", hero.move_character)
 
+canvas.focus_set()
+
+canvas.pack()
 root.mainloop()
