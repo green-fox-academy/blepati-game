@@ -5,32 +5,38 @@ canvas = Canvas(root, width=720, height=720, background = "black")
 canvas.pack()
 
 map1 = [
-      [0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 1, 1, 0, 0, 1, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 1, 0, 1, 1],
+      [0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+      [1, 0, 1, 1, 1, 0, 1, 1, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 1, 0, 1],
+      [1, 1, 0, 0, 1, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 1, 0, 1, 1, 0, 0],
+      [0, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+      [1, 1, 1, 0, 0, 0, 0, 0, 1, 1],
+      [0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
       ]
 
 class FloorMap(object):
     def __init__(self):
-        self.background_floor = PhotoImage(file="assets/floor.png")
-        self.background_wall = PhotoImage(file="assets/wall.png")
+        self.background_tile_floor = PhotoImage(file="assets/floor.png")
+        self.background_tile_wall = PhotoImage(file="assets/wall.png")
+        self.tile = 72
 
-    def display(self): #a valtozokat csinald meg csinosabbra
-        for row in range(len(map1)):
-            for cell in range(len(map1[row])):
-                if map1[cell][row] == 0:
-                    canvas.create_image(row*72, cell*72, anchor = "nw", image = self.background_floor)
+    def map_display(self, map): #a valtozokat csinald meg csinosabbra
+        for row in range(len(map)):
+            for cell in range(len(map[row])):
+                if map[cell][row] == 0:
+                    canvas.create_image(row*self.tile, cell*self.tile, anchor = "nw", image = self.background_tile_floor)
                 else:
-                    canvas.create_image(row*72, cell*72, anchor = "nw", image = self.background_wall)
+                    canvas.create_image(row*self.tile, cell*self.tile, anchor = "nw", image = self.background_tile_wall)
+
+class Character(object):
+    def __init__(self):
+        pass
+
 
 floor = FloorMap()
-floor.display()
+floor.map_display(map1)
 
 root.mainloop()
