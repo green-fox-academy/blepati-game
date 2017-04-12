@@ -32,11 +32,15 @@ class FloorMap(object):
                     canvas.create_image(row*self.tile, cell*self.tile, anchor = "nw", image = self.background_tile_wall)
 
 class Character(object):
-    def __init__(self):
-        pass
+    def __init__(self, char_pic):
+        self.char_pic = PhotoImage(file="assets/" + char_pic)
 
+    def draw_character(self):
+        canvas.create_image(0, 0, anchor = "nw", image = self.char_pic)
 
 floor = FloorMap()
 floor.map_display(map1)
+hero = Character("hero-down.png")
+hero.draw_character()
 
 root.mainloop()
