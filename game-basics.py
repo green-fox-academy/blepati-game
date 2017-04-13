@@ -30,24 +30,26 @@ class Character(object):
 class Hero(Character):
     def __init__(self):
         super().__init__()
-        self.char_pic_down =  PhotoImage(file="assets/hero-down.png")
-        self.char_pic_up=  PhotoImage(file="assets/hero-up.png")
-        self.char_pic_left =  PhotoImage(file="assets/hero-left.png")
-        self.char_pic_right =  PhotoImage(file="assets/hero-right.png")
+        self.char_pic_down =  PhotoImage(file="assets/zodiac-rabbit-front.png")
+        self.char_pic_up=  PhotoImage(file="assets/zodiac-rabbit-back.png")
+        self.char_pic_left =  PhotoImage(file="assets/zodiac-rabbit-left-side.png")
+        self.char_pic_right =  PhotoImage(file="assets/zodiac-rabbit-side.png")
         self.draw_character(self.pos_x, self.pos_y, self.char_pic_down)
 
     def move_character(self, e):
-        if e.keycode == 111:
-            self.draw_character(self.pos_x, self.pos_y, self.char_pic_up)
-        elif e.keycode == 116:
-            self.pos_y += 1
-            self.draw_character(self.pos_x, self.pos_y, self.char_pic_down)
-        elif e.keycode == 114:
-            self.pos_x += 1
-            self.draw_character(self.pos_x, self.pos_y, self.char_pic_right)
-        elif e.keycode == 113:
-            self.pos_x -= 1
-            self.draw_character(self.pos_x, self.pos_y, self.char_pic_left)
+        #if (self.pos_x > 0 and self.pos_y > 0) or (self.pos_x < 9 and self.pos_y < 9):not working
+            if e.keycode == 111:
+                self.pos_y -= 1
+                self.draw_character(self.pos_x, self.pos_y, self.char_pic_up)
+            elif e.keycode == 116:
+                self.pos_y += 1
+                self.draw_character(self.pos_x, self.pos_y, self.char_pic_down)
+            elif e.keycode == 114:
+                self.pos_x += 1
+                self.draw_character(self.pos_x, self.pos_y, self.char_pic_right)
+            elif e.keycode == 113:
+                self.pos_x -= 1
+                self.draw_character(self.pos_x, self.pos_y, self.char_pic_left)
 
 floor = FloorMap()
 floor.map_display(map1)
