@@ -1,12 +1,12 @@
 from tkinter import *
 from boards import *
 root = Tk()
-canvas = Canvas(root, width=720, height=720, background = "black")
+canvas = Canvas(root, width=720, height=720, background = "#59e03e")
 
 class FloorMap(object):
     def __init__(self):
-        self.background_tile_floor = PhotoImage(file="assets/floor.png")
-        self.background_tile_wall = PhotoImage(file="assets/wall.png")
+        self.background_tile_floor = PhotoImage(file="assets/grass.png")
+        self.background_tile_wall = PhotoImage(file="assets/bush.png")
         self.tile = 72
 
     def map_display(self, board): #a valtozokat csinald meg csinosabbra
@@ -23,9 +23,11 @@ class Character(object):
         self.pos_x = 0
         self.pos_y = 0
         self.tile = 72
+        self.character_del = 0
 
     def draw_character(self, pos_x, pos_y, char_pic):
-        canvas.create_image(pos_x*self.tile, pos_y*self.tile, anchor = NW, image = char_pic)
+        canvas.delete(self.character_del)
+        self.character_del = canvas.create_image(pos_x*self.tile, pos_y*self.tile, anchor = NW, image = char_pic)
 
 class Hero(Character):
     def __init__(self):
@@ -33,11 +35,13 @@ class Hero(Character):
         self.char_pic_down =  PhotoImage(file="assets/zodiac-rabbit-front.png")
         self.char_pic_up=  PhotoImage(file="assets/zodiac-rabbit-back.png")
         self.char_pic_left =  PhotoImage(file="assets/zodiac-rabbit-left-side.png")
-        self.char_pic_right =  PhotoImage(file="assets/zodiac-rabbit-side.png")
+        self.char_pic_right =  PhotoImage(file="assets/zodiac-rabbit-right-side.png")
         self.draw_character(self.pos_x, self.pos_y, self.char_pic_down)
 
+    def get_tile_status(self):
+        pass
+
     def move_character(self, e):
-        #if (self.pos_x > 0 and self.pos_y > 0) or (self.pos_x < 9 and self.pos_y < 9):not working
             if e.keycode == 111:
                 self.pos_y -= 1
                 self.draw_character(self.pos_x, self.pos_y, self.char_pic_up)
